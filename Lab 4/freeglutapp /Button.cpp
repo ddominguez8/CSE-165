@@ -1,4 +1,4 @@
-#include "Rect.h"
+#include "Button.h"
 
 #if defined WIN32
 #include <freeglut.h>
@@ -8,7 +8,7 @@
 #include <GL/freeglut.h>
 #endif
 
-Rect::Rect(){
+Button::Button(){
 	x = 0;
 	y = 0;
 	red = 1;
@@ -21,7 +21,7 @@ Rect::Rect(){
 	selected = false;
 }
 
-Rect::Rect(float x, float y, float w, float h){
+Button::Button(float x, float y, float w, float h){
 	this->x = x;
 	this->y = y;
 
@@ -35,11 +35,12 @@ Rect::Rect(float x, float y, float w, float h){
 	selected = false;
 }
 
-Rect::Rect(float x, float y, float w, float h, float red, float green, float blue){
+Button::Button(float x, float y, float w, float h, float red, float green, float blue){
 	this->x = x;
 	this->y = y;
 
 	this->red = red;
+
 	this->green = green;
 	this->blue = blue;
 
@@ -49,42 +50,25 @@ Rect::Rect(float x, float y, float w, float h, float red, float green, float blu
 	selected = false;
 }
 
-bool Rect::contains(float x, float y){
+bool Button::contains(float x, float y){
 	return (x > this->x) && (x < this->x + this->w) && (y < this->y) && (y > this->y - this->h);
 }
 
-
-void Rect::moveUp(){
-	y += 0.05;
-}
-
-void Rect::moveDown(){
-	y -= 0.05;
-}
-
-void Rect::moveLeft(){
-	x -= 0.05;
-}
-
-void Rect::moveRight(){
-	x += 0.05;
-}
-
-void Rect::select(){
+void Button::select(){
 	selected = true;
 }
 
-void Rect::deselect(){
+void Button::deselect(){
 	selected = false;
 }
 
 
 
-void Rect::draw(){
+void Button::draw(){
 
 	if (selected){
 
-		glColor3f(1,1,1);
+		glColor3f(0,0,0);
 		glBegin(GL_LINES);
 
 		glVertex2f(x, y);

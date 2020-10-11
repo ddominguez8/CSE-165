@@ -1,7 +1,7 @@
 #include <iostream>
 #include <math.h>
 #include <deque>
-#include "Rect.h"
+#include "Button.h"
 #include "NOTMSPaint.h"
 
 #if defined WIN32
@@ -24,6 +24,7 @@ int width = 640, height = 640;
 bool eraser = false;
 
 deque<Point*> points;
+deque<Button*> buttons;
 
 void renderText(
     string text, 
