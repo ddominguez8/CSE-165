@@ -2,7 +2,7 @@
 #include <math.h>
 #include <deque>
 #include "Button.h"
-#include "NOTMSPaint.h"
+#include "Point.h"
 
 #if defined WIN32
 #include <freeglut.h>
@@ -64,9 +64,14 @@ void appDrawScene() {
 	for(int i = 0; i < points.size(); i++){
 		points[i]->draw();
 	}
+	for(int i = 0; i < buttons.size(); i++){
+		buttons[i]->draw();
+	}
 
-
-	renderText("Lab 4 - NOT MS Paint", -0.4, 0.9, GLUT_BITMAP_TIMES_ROMAN_24, 0,0,0);
+	renderText("Lab 4 - NOT MS Paint", -0.4, 0.9, GLUT_BITMAP_HELVETICA_18, 0,0,0);
+	renderText("Brush", buttons[0]->x+0.07, buttons[0]->y-0.1, GLUT_BITMAP_HELVETICA_18, 0,0,0);
+	renderText("Eraser", buttons[1]->x+0.07, buttons[1]->y-0.1, GLUT_BITMAP_HELVETICA_18, 0,0,0);
+	renderText("Colors", buttons[2]->x, buttons[2]->y+0.05, GLUT_BITMAP_HELVETICA_18, 0,0,0);
 
 
 
@@ -227,6 +232,12 @@ void idle(){
 
 
 int main(int argc, char** argv) {
+
+	buttons.push_back(new Button(-0.8, 0.8, 0.3, 0.15));
+	buttons.push_back(new Button(-0.4, 0.8, 0.3, 0.15));
+	buttons.push_back(new Button(0.8, 0.8, 0.15, 0.3));
+	buttons.push_back(new Button(0.8, 0.4, 0.15, 0.3));
+
 	
 	// Initialize GLUT
 	glutInit(&argc, argv);
@@ -238,7 +249,7 @@ int main(int argc, char** argv) {
 	glutInitWindowSize(width-1, height-1);
 
 	// Create the window
-	glutCreateWindow("CSE165 OpenGL Demo");
+	glutCreateWindow("NOTMSPaint Demo - CSE 165 ");
 
 	// Setup some OpenGL options
 	glEnable(GL_DEPTH_TEST);

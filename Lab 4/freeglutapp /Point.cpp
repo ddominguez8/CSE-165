@@ -1,4 +1,4 @@
-#include "NOTMSPaint.h"
+#include "Point.h"
 
 #if defined WIN32
 #include <freeglut.h>

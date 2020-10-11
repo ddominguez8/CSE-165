@@ -1,5 +1,5 @@
-#ifndef NOTMSPAINT_H
-#define NOTMSPAINT_H
+#ifndef POINT_H
+#define POINT_H
 
 struct Point {
 	float x;
