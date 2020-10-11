@@ -2,6 +2,7 @@
 #include <math.h>
 #include <deque>
 #include "Rect.h"
+#include "NOTMSPaint.h"
 
 #if defined WIN32
 #include <freeglut.h>
@@ -16,31 +17,6 @@
 using namespace std;
 
 
-
-
-struct Point{
-	float x;
-	float y;
-
-	float r;
-	float g;
-	float b;
-
-
-	Point(float x, float y, float r, float g, float b): x(x), y(y), r(r), g(g), b(b) {}
-
-	void draw(){
-		glColor3f(r, g, b);
-		glPointSize(10);
-
-		glBegin(GL_POINTS);
-
-		glVertex2f(x, y);
-
-		glEnd();
-	}
-
-};
 
 // Store the width and height of the window
 int width = 640, height = 640;
@@ -89,7 +65,7 @@ void appDrawScene() {
 	}
 
 
-	renderText("Hello World", -0.8, 0, GLUT_BITMAP_TIMES_ROMAN_24, 0,0,0);
+	renderText("Lab 4 - NOT MS Paint", -0.4, 0.9, GLUT_BITMAP_TIMES_ROMAN_24, 0,0,0);
 
 
 
