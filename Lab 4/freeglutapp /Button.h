@@ -18,16 +18,9 @@ struct Button {
 
 	Button(char objectSelection); 
 
-	Button(float x, float y, float w, float h, char objectSelection);
-
-	Button(float x, float y, float w, float h, float red, float green, float blue);
-
 	void draw();
 
 	bool contains(float x, float y);
-
-	void select();
-	void deselect();
 
 
 };

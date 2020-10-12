@@ -21,28 +21,15 @@ Point::Point(float x, float y, float r, float g, float b){
 }
 
 void Point::draw() {
-    if (pointEraser) {
-        cout << "erasing" << endl;
-        glColor3f(1, 1, 1);
-        glPointSize(10);
+   
+    glColor3f(r, g, b); 
+    glPointSize(10);
 
-        glBegin(GL_POINTS);
+    glBegin(GL_POINTS);
 
-        glVertex2f(x, y);
+    glVertex2f(x,y);
 
-        glEnd();
-    }
-    else{
-        cout << "brushing" << endl;
-        glColor3f(r, g, b); 
-        glPointSize(10);
-
-        glBegin(GL_POINTS);
-
-        glVertex2f(x,y);
-
-        glEnd();
-    }
+    glEnd();
 }
 
 // void Point::brushPush() {

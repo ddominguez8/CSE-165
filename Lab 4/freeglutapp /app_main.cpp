@@ -1,3 +1,9 @@
+/*Collaborations: 
+	Tyler Brittain: Reminded to put RenderText() into another class
+	Angelo Kyrilov: Basically gave most of the code on how to paint, I simply 
+	abstracted everything as instructed
+*/
+
 #include <iostream>
 #include <math.h>
 #include <deque>
@@ -17,33 +23,10 @@
 
 using namespace std;
 
-
-
 // Store the width and height of the window
 int width = 640, height = 640;
 
-// deque<Point*> points;
-//deque<Button*> buttons;
 deque<Paint*> paintMain;
-
-void renderText(
-    string text, 
-    float x, 
-    float y, 
-    void* font = GLUT_BITMAP_HELVETICA_18, 
-    float r = 1, 
-    float g = 1, 
-    float b = 1
-){
-    glColor3f(r, g, b);
-    float offset = 0;
-    for (int i = 0; i < text.length(); i++) {
-        glRasterPos2f(x+offset, y);
-        glutBitmapCharacter(font, text[i]);
-        int w = glutBitmapWidth(font, text[i]);
-        offset += ((float)w / width)*2;
-    }
-}
 
 
 //-------------------------------------------------------
@@ -63,13 +46,6 @@ void appDrawScene() {
 	
 	paintMain[0]->drawPoints();
 	paintMain[0]->drawButtons();
-
-	renderText("Lab 4 - NOT MS Paint", -0.4, 0.9, GLUT_BITMAP_HELVETICA_18, 0,0,0);
-	// renderText("Brush", buttons[0]->x+0.07, buttons[0]->y-0.1, GLUT_BITMAP_HELVETICA_18, 0,0,0);
-	// renderText("Eraser", buttons[1]->x+0.07, buttons[1]->y-0.1, GLUT_BITMAP_HELVETICA_18, 0,0,0);
-	// renderText("Colors", buttons[2]->x, buttons[2]->y+0.05, GLUT_BITMAP_HELVETICA_18, 0,0,0);
-
-	
 
 	// We have been drawing everything to the back buffer
 	// Swap the buffers to see the result of what we drew
@@ -157,32 +133,9 @@ void appMouseFunc(int b, int s, int x, int y) {
 	float my = (float)y;
 
 	windowToScene(mx, my);
-	if (s == GLUT_DOWN) {
-		paintMain[0]->painting(mx,my);
-	}
-	
-	// if (s == GLUT_DOWN) {
-	// 	for (int i = 0; i < buttons.size(); i++) {
-	// 		if (buttons[i]->contains(mx,my) && buttons[i]->objectSelection == 'e') {
-	// 			points[0]->eraserPush();
-	// 			cout << "eraserpush" << endl;
-	// 			eraser = !eraser;
-	// 		}
-	// 		if (buttons[i]->contains(mx,my) && buttons[i]->objectSelection == 'b') {
-	// 			points[0]->brushPush();
-	// 			cout << "brushpush" << endl;
-	// 		}
-	// 		if (buttons[i]->contains(mx,my) && buttons[i]->objectSelection == 't') {
-	// 			cout << "tealpush" << endl;
-	// 			points[0]->tealPush();
-	// 		}
-	// 		if (buttons[i]->contains(mx,my) && buttons[i]->objectSelection == 'r') {
-	// 			cout << "redpush" << endl;
-	// 			points[0]->redPush();
-	// 		}
-	// 	}
-	// }
 
+	if (s == GLUT_DOWN) paintMain[0]->painting(mx,my);
+		
 	// Redraw the scene by calling appDrawScene above
 	// so that the point we added above will get painted
 	glutPostRedisplay();
@@ -202,13 +155,6 @@ void appMotionFunc(int x, int y) {
 	windowToScene(mx, my);
 
 	paintMain[0]->painting(mx,my);
-	
-	// if (eraser){
-	// 	points.push_front(new Point(mx, my, 1, 1, 1));
-	// }
-	// else{
-	// 	points.push_front(new Point(mx, my, 1, 0, 0));
-	// }
 	
 	// Again, we redraw the scene
 	glutPostRedisplay();

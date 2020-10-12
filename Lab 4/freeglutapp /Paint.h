@@ -1,5 +1,6 @@
 #ifndef PAINT_H
 #define PAINT_H
+#include <string>
 
 struct Paint {
     float mousex; 
@@ -10,10 +11,6 @@ struct Paint {
     void drawButtons();
     void drawPoints();
     void painting(float mousex, float mousey);
-    bool eraser;
-    bool brush;
-    bool red;
-    bool teal;
     
     char tool;
     char color;
@@ -22,6 +19,17 @@ struct Paint {
     void brushPush();
     void redPush();
     void tealPush();
+    void purplePush();
+
+    void renderText(
+    std::string text, 
+    float x, 
+    float y, 
+    void* font, 
+    float r, 
+    float g, 
+    float b
+    );
 };
 
 #endif
