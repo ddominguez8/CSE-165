@@ -3,6 +3,7 @@
 #include <deque>
 #include "Button.h"
 #include "Point.h"
+#include "Paint.h"
 
 #if defined WIN32
 #include <freeglut.h>
@@ -21,10 +22,9 @@ using namespace std;
 // Store the width and height of the window
 int width = 640, height = 640;
 
-bool eraser = false;
-
-deque<Point*> points;
-deque<Button*> buttons;
+// deque<Point*> points;
+//deque<Button*> buttons;
+deque<Paint*> paintMain;
 
 void renderText(
     string text, 
@@ -61,19 +61,15 @@ void appDrawScene() {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	
-	for(int i = 0; i < points.size(); i++){
-		points[i]->draw();
-	}
-	for(int i = 0; i < buttons.size(); i++){
-		buttons[i]->draw();
-	}
+	paintMain[0]->drawPoints();
+	paintMain[0]->drawButtons();
 
 	renderText("Lab 4 - NOT MS Paint", -0.4, 0.9, GLUT_BITMAP_HELVETICA_18, 0,0,0);
-	renderText("Brush", buttons[0]->x+0.07, buttons[0]->y-0.1, GLUT_BITMAP_HELVETICA_18, 0,0,0);
-	renderText("Eraser", buttons[1]->x+0.07, buttons[1]->y-0.1, GLUT_BITMAP_HELVETICA_18, 0,0,0);
-	renderText("Colors", buttons[2]->x, buttons[2]->y+0.05, GLUT_BITMAP_HELVETICA_18, 0,0,0);
+	// renderText("Brush", buttons[0]->x+0.07, buttons[0]->y-0.1, GLUT_BITMAP_HELVETICA_18, 0,0,0);
+	// renderText("Eraser", buttons[1]->x+0.07, buttons[1]->y-0.1, GLUT_BITMAP_HELVETICA_18, 0,0,0);
+	// renderText("Colors", buttons[2]->x, buttons[2]->y+0.05, GLUT_BITMAP_HELVETICA_18, 0,0,0);
 
-
+	
 
 	// We have been drawing everything to the back buffer
 	// Swap the buffers to see the result of what we drew
@@ -161,14 +157,31 @@ void appMouseFunc(int b, int s, int x, int y) {
 	float my = (float)y;
 
 	windowToScene(mx, my);
-
-	if (eraser){
-		points.push_front(new Point(mx, my, 1, 1, 1));
-	}
-	else{
-		points.push_front(new Point(mx, my, 1, 0, 0));
+	if (s == GLUT_DOWN) {
+		paintMain[0]->painting(mx,my);
 	}
 	
+	// if (s == GLUT_DOWN) {
+	// 	for (int i = 0; i < buttons.size(); i++) {
+	// 		if (buttons[i]->contains(mx,my) && buttons[i]->objectSelection == 'e') {
+	// 			points[0]->eraserPush();
+	// 			cout << "eraserpush" << endl;
+	// 			eraser = !eraser;
+	// 		}
+	// 		if (buttons[i]->contains(mx,my) && buttons[i]->objectSelection == 'b') {
+	// 			points[0]->brushPush();
+	// 			cout << "brushpush" << endl;
+	// 		}
+	// 		if (buttons[i]->contains(mx,my) && buttons[i]->objectSelection == 't') {
+	// 			cout << "tealpush" << endl;
+	// 			points[0]->tealPush();
+	// 		}
+	// 		if (buttons[i]->contains(mx,my) && buttons[i]->objectSelection == 'r') {
+	// 			cout << "redpush" << endl;
+	// 			points[0]->redPush();
+	// 		}
+	// 	}
+	// }
 
 	// Redraw the scene by calling appDrawScene above
 	// so that the point we added above will get painted
@@ -188,12 +201,14 @@ void appMotionFunc(int x, int y) {
 
 	windowToScene(mx, my);
 
-	if (eraser){
-		points.push_front(new Point(mx, my, 1, 1, 1));
-	}
-	else{
-		points.push_front(new Point(mx, my, 1, 0, 0));
-	}
+	paintMain[0]->painting(mx,my);
+	
+	// if (eraser){
+	// 	points.push_front(new Point(mx, my, 1, 1, 1));
+	// }
+	// else{
+	// 	points.push_front(new Point(mx, my, 1, 0, 0));
+	// }
 	
 	// Again, we redraw the scene
 	glutPostRedisplay();
@@ -210,9 +225,6 @@ void appKeyboardFunc(unsigned char key, int x, int y) {
 	// Define what should happen for a given key press 
 	switch (key) {	
 	// Escape was pressed. Quit the program
-	case ' ':
-		eraser = !eraser;
-		break;
 	case 27:
 		exit(0);
 		break;
@@ -232,12 +244,8 @@ void idle(){
 
 
 int main(int argc, char** argv) {
-
-	buttons.push_back(new Button(-0.8, 0.8, 0.3, 0.15));
-	buttons.push_back(new Button(-0.4, 0.8, 0.3, 0.15));
-	buttons.push_back(new Button(0.8, 0.8, 0.15, 0.3));
-	buttons.push_back(new Button(0.8, 0.4, 0.15, 0.3));
-
+	
+	paintMain.push_back(new Paint());
 	
 	// Initialize GLUT
 	glutInit(&argc, argv);
@@ -249,7 +257,7 @@ int main(int argc, char** argv) {
 	glutInitWindowSize(width-1, height-1);
 
 	// Create the window
-	glutCreateWindow("NOTMSPaint Demo - CSE 165 ");
+	glutCreateWindow("NOTMSPaint Demo - CSE 165");
 
 	// Setup some OpenGL options
 	glEnable(GL_DEPTH_TEST);

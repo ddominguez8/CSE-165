@@ -1,4 +1,5 @@
 #include "Point.h"
+#include <iostream>
 
 #if defined WIN32
 #include <freeglut.h>
@@ -7,6 +8,8 @@
 #else
 #include <GL/freeglut.h>
 #endif
+
+using namespace std; 
 
 Point::Point(float x, float y, float r, float g, float b){
 	this->x = x;
@@ -18,12 +21,43 @@ Point::Point(float x, float y, float r, float g, float b){
 }
 
 void Point::draw() {
-    glColor3f(r, g, b);
-    glPointSize(10);
+    if (pointEraser) {
+        cout << "erasing" << endl;
+        glColor3f(1, 1, 1);
+        glPointSize(10);
 
-    glBegin(GL_POINTS);
+        glBegin(GL_POINTS);
 
-    glVertex2f(x, y);
+        glVertex2f(x, y);
 
-    glEnd();
+        glEnd();
+    }
+    else{
+        cout << "brushing" << endl;
+        glColor3f(r, g, b); 
+        glPointSize(10);
+
+        glBegin(GL_POINTS);
+
+        glVertex2f(x,y);
+
+        glEnd();
+    }
 }
+
+// void Point::brushPush() {
+//     brush = true;
+//     pointEraser = false;
+// }
+// void Point::eraserPush() {
+//     eraser = true;
+//     brush = false;
+// }
+// void Point::redPush() {
+//     red = true;
+//     teal = false;
+// }
+// void Point::tealPush() {
+//     teal = true;
+//     red = false;
+// }

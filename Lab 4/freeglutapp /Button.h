@@ -12,12 +12,13 @@ struct Button {
 
 	float w;
 	float h;
+	char objectSelection;
 
 	bool selected;
 
-	Button(); // This is a default constructor (takes no parameters)
+	Button(char objectSelection); 
 
-	Button(float x, float y, float w, float h);
+	Button(float x, float y, float w, float h, char objectSelection);
 
 	Button(float x, float y, float w, float h, float red, float green, float blue);
 
