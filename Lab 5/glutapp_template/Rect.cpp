@@ -11,7 +11,7 @@
 
 Rect::Rect(){
 	x = -0.1;
-	y = 0.1;
+	y = -0.6;
 	red = 1;
 	green = 1;
 	blue = 1;
@@ -138,4 +138,20 @@ void Rect::setW(float w){
 
 void Rect::setH(float h){
 	this->h = h;
+}
+
+void Rect::moveUp() {
+	y+=0.09;
+}
+
+void Rect::moveDown() {
+	y-=0.09;
+}
+
+void Rect::moveLeft() {
+	x-=0.09;
+}
+
+void Rect::moveRight() {
+	x+=0.09;
 }

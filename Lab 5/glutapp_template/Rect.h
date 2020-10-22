@@ -52,6 +52,11 @@ public:
 
 	void setH(float h);
 
+	void moveUp();
+	void moveDown();
+	void moveLeft();
+	void moveRight();
+
 };
 
 
