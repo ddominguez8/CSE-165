@@ -141,17 +141,17 @@ void Rect::setH(float h){
 }
 
 void Rect::moveUp() {
-	y+=0.09;
+	y+=0.1;
 }
 
 void Rect::moveDown() {
-	y-=0.09;
+	y-=0.1;
 }
 
 void Rect::moveLeft() {
-	x-=0.09;
+	x-=0.1;
 }
 
 void Rect::moveRight() {
-	x+=0.09;
+	x+=0.1;
 }

@@ -26,6 +26,8 @@ public:
     
     void keyDown(unsigned char key, float x, float y);
     
+    void appIdle();
+
     ~App();
     
 };
