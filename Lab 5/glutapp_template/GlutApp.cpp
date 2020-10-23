@@ -2,6 +2,8 @@
 #include <iostream>
 #include <stdlib.h>
 
+
+
 static GlutApp* singleton;
 
 GlutApp::GlutApp(int argc, char** argv, int width, int height, const char* title){
