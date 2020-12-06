@@ -12,12 +12,12 @@ PROGRAM = glutapp
 # OPTFLAGS = -g  # for debug
 OPTFLAGS =
 CC       = g++
-CFLAGS   = -w $(OPTFLAGS)
+CFLAGS   = -w $(OPTFLAGS) -std=c++11 -pthread -Wno-narrowing
 
 ifeq ($(strip $(OS)),Darwin)
-	LDFLAGS = -framework GLUT -framework OpenGL
+	LDFLAGS = -framework CoreFoundation -framework GLUT -framework OpenGL
 else
-	LDFLAGS = -lGL -lglut
+	LDFLAGS = -lGL -lglut -lGLU
 endif
 
 #######################################################################
